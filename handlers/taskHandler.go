@@ -1,27 +1,17 @@
+// Package: handlers
+// This package contains the handlers such as list tasks, delete task and update task.
 package handlers
 
 import (
+	"net/http"
 	models "desafio-amparo/models"
 	net "net/url"
-	"net/http"
 	strconv "strconv"
 	time "time"
-	// fmt "fmt"
 	gin "github.com/gin-gonic/gin"
 )
 
-/* Tasks
-1	Decidir sobre doação de órgãos e tecidos
-2	Decidir entre sepultamento e cremação
-3	Obter declaração de óbito
-4	Ligar para o plano funeral ou contratar funerária
-5	Comunicar à família e amigos
-6	Obter a certidão de óbito
-7	Planejar o funeral
-8	Solicitar licença para se ausentar do trabalho
-9	Planejar a missa de sétimo dia
-*/
-
+// Tasks is a predefined list of tasks used to simulate a database
 var tasks = []models.Task{
 	{
 		ID:          1,
@@ -106,6 +96,13 @@ var tasks = []models.Task{
 	},
 }
 
+// GetTasks is a handler function that returns a list of tasks. If the "limit" parameter exceeds 3, it returns an error message.
+//
+// Params:
+//  c: gin context that contains the request and response objects
+//
+// Returns:
+// A JSON response with the list of tasks or an error message.
 func GetTasks(c *gin.Context) {
 	urlStr := c.Request.URL.String()
 	myUrl, _ := net.Parse(urlStr)
@@ -124,6 +121,13 @@ func GetTasks(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, tasks)
 }
 
+// DelTask is a handler function that deletes a task from the list of tasks.
+//
+// Params:
+//  c: gin context that contains the request and response objects
+//
+// Returns:
+// A JSON response with a success message or an error message.
 func DelTask(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	
@@ -142,6 +146,13 @@ func DelTask(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Tarefa não encontrada"})
 }
 
+// UpdateTask is a handler function that updates a task from the list of tasks.
+//
+// Params:
+//  c: gin context that contains the request and response objects
+//
+// Returns:
+// A JSON response with a success message or an error message.
 func UpdateTask(c *gin.Context) {
 
 

@@ -1,9 +1,7 @@
 package main
-
 import (
 	gin "github.com/gin-gonic/gin"
 	"desafio-amparo/handlers"
-	// "desafio-amparo/models"
 )
 
 func main() {
